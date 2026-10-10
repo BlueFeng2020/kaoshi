@@ -58,7 +58,7 @@ class Dataset:
             if source == DEVICE_FILE:
                 self.issue(source,'设备编号',frame['设备编号'].duplicated(keep=False),'设备编号重复','所有同编号行排除关联和周期统计，避免多对多放大')
             else:
-                self.issue(source,'维修单号',frame['维修单号'].duplicated(keep=False),'维修单号重复','保留所有重复行，重复单号不纳入有效维修指标')
+                self.issue(source,'维修单号',frame['维修单号'].duplicated(keep=False),'维修单号重复','原始和追溯明细保留重复行；从清洗维修CSV及有效维修指标中剔除')
             for field in date_fields[source]:
                 s = frame[field].str.strip()
                 parsed = pd.to_datetime(s.str.replace('/','-',regex=False), format='%Y-%m-%d', errors='coerce')
@@ -101,13 +101,13 @@ class Dataset:
         repair_start = r['设备编号'].map(starts)
         early = report.lt(repair_start)
         reverse = finish.lt(report)
-        self.issue(REPAIR_FILE,'设备编号',self.orphan,'维修设备编号不存在于台账','保留；排除设备关联及有效维修指标')
-        self.issue(REPAIR_FILE,'设备编号',ambiguous,'维修关联台账编号不唯一','保留；排除有效关联指标')
-        self.issue(REPAIR_FILE,'报修日期',early,'报修早于投用','保留；排除有效维修次数、费用及停机趋势')
-        self.issue(REPAIR_FILE,'维修完成日期',reverse,'维修完成早于报修','保留；排除有效维修次数、费用及停机趋势')
-        self.issue(REPAIR_FILE,'报修日期',report.isna(),'报修日期缺失或无效','保留；排除有效维修指标')
-        self.issue(REPAIR_FILE,'维修完成日期',finish.isna(),'维修完成日期缺失或无效','保留；排除已完成维修指标')
-        self.issue(REPAIR_FILE,'设备编号',~self.orphan & repair_start.isna(),'关联投用日期缺失或无效','不能核验维修时间；排除有效维修指标')
+        self.issue(REPAIR_FILE,'设备编号',self.orphan,'维修设备编号不存在于台账','原始和追溯明细保留；从清洗维修CSV及有效关联指标中剔除')
+        self.issue(REPAIR_FILE,'设备编号',ambiguous,'维修关联台账编号不唯一','原始和追溯明细保留；从清洗维修CSV及有效关联指标中剔除')
+        self.issue(REPAIR_FILE,'报修日期',early,'报修早于投用','原始和追溯明细保留；从清洗维修CSV及维修次数、费用、停机统计中剔除')
+        self.issue(REPAIR_FILE,'维修完成日期',reverse,'维修完成早于报修','原始和追溯明细保留；从清洗维修CSV及维修次数、费用、停机统计中剔除')
+        self.issue(REPAIR_FILE,'报修日期',report.isna(),'报修日期缺失或无效','原始和追溯明细保留；从清洗维修CSV及有效维修指标中剔除')
+        self.issue(REPAIR_FILE,'维修完成日期',finish.isna(),'维修完成日期缺失或无效','原始和追溯明细保留；从清洗维修CSV及已完成维修指标中剔除')
+        self.issue(REPAIR_FILE,'设备编号',~self.orphan & repair_start.isna(),'关联投用日期缺失或无效','不能核验维修时间；原始和追溯明细保留，从清洗维修CSV及有效指标剔除')
         self.issue(REPAIR_FILE,'停机时长(小时)',self.numbers[REPAIR_FILE,'停机时长(小时)'].eq(0),'零停机记录','保留零值并纳入有效停机统计，不自动判错')
         future = report.gt(pd.Timestamp(CUTOFF))
         self.issue(REPAIR_FILE,'报修日期',future,'报修晚于业务截止日','原记录保留；全量运维分析纳入，截止日维修计数排除')
@@ -330,7 +330,7 @@ class Dataset:
             '累计次数、停机、费用逐设备核验原始台账与原始明细；明细不完整标明无法完整核验。清洗台账按保留的有效明细重算，并保存原值和对账依据。',
             '累计停机或费用的有效明细存在缺失时，完整累计值留空；运维表另列已知合计及样本数；不通过汇总差额反推缺失值。',
             '故障现象核验采用domain_rules.py可审查的精确短语词典，不使用在线API、预设数量或记录编号；未收录短语不作武断更正。',
-            '季节图按所有年份同一日历月累计，未校正各年月份覆盖和在用暴露量，不能据此推断季节因果或故障率。'],
+            '日历月趋势图按跨年累计；重点季节对比另按全体有效报修最早至最晚年月的窗口覆盖数均摊，范围内零记录月份也计入分母。首末月可能不完整，均未校正设备在用暴露量，不能据此推断季节因果或故障率。'],
             '原始文件SHA256':{name:hashlib.sha256((self.data_dir/name).read_bytes()).hexdigest() for name in self.raw},
             '周期排除设备编号':self.life.loc[~self.lifecycle_valid,'设备编号'].tolist(),
             '结论':self.interpretation}

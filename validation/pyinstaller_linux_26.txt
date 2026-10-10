@@ -1,120 +1,120 @@
-44 INFO: PyInstaller: 6.16.0, contrib hooks: 2026.8
+43 INFO: PyInstaller: 6.16.0, contrib hooks: 2026.8
 44 INFO: Python: 3.12.14
 45 INFO: Platform: Linux-6.18.44-x86_64-with-glibc2.41
 45 INFO: Python environment: /workspace/kaoshi/.venv
 45 INFO: wrote /workspace/kaoshi/build/26.spec
 46 INFO: Removing temporary files and cleaning cache in /home/agent/.cache/pyinstaller
-52 INFO: Module search paths (PYTHONPATH):
+50 INFO: Module search paths (PYTHONPATH):
 ['/workspace/kaoshi',
  '/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python312.zip',
  '/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12',
  '/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/lib-dynload',
  '/workspace/kaoshi/.venv/lib/python3.12/site-packages',
  '/workspace/kaoshi']
-209 INFO: Appending 'datas' from .spec
-210 INFO: checking Analysis
-210 INFO: Building Analysis because Analysis-00.toc is non existent
-210 INFO: Looking for Python shared library...
-217 INFO: Using Python shared library: /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/libpython3.12.so.1.0
-217 INFO: Running Analysis Analysis-00.toc
-217 INFO: Target bytecode optimization level: 0
-217 INFO: Initializing module dependency graph...
-217 INFO: Initializing module graph hook caches...
-222 INFO: Analyzing modules for base_library.zip ...
-805 INFO: Processing standard module hook 'hook-encodings.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-1749 INFO: Processing standard module hook 'hook-pickle.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-2856 INFO: Processing standard module hook 'hook-heapq.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-3077 INFO: Caching module dependency graph...
-3103 INFO: Analyzing /workspace/kaoshi/app.py
-3138 INFO: Processing standard module hook 'hook-pandas.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-3771 INFO: Processing standard module hook 'hook-platform.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-3787 INFO: Processing standard module hook 'hook-sysconfig.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-3801 INFO: Processing standard module hook 'hook-numpy.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-3979 INFO: Processing pre-safe-import-module hook 'hook-typing_extensions.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
-3979 INFO: SetuptoolsInfo: initializing cached setuptools info...
-5058 INFO: Processing standard module hook 'hook-_ctypes.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-5416 INFO: Processing standard module hook 'hook-difflib.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-5566 INFO: Processing standard module hook 'hook-multiprocessing.util.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-5619 INFO: Processing standard module hook 'hook-xml.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-6585 INFO: Processing standard module hook 'hook-pytz.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-8115 INFO: Processing standard module hook 'hook-pandas.io.formats.style.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-9244 INFO: Processing standard module hook 'hook-pandas.plotting.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-9274 INFO: Processing standard module hook 'hook-matplotlib.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+256 INFO: Appending 'datas' from .spec
+257 INFO: checking Analysis
+257 INFO: Building Analysis because Analysis-00.toc is non existent
+257 INFO: Looking for Python shared library...
+263 INFO: Using Python shared library: /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/libpython3.12.so.1.0
+263 INFO: Running Analysis Analysis-00.toc
+263 INFO: Target bytecode optimization level: 0
+263 INFO: Initializing module dependency graph...
+264 INFO: Initializing module graph hook caches...
+269 INFO: Analyzing modules for base_library.zip ...
+788 INFO: Processing standard module hook 'hook-encodings.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+1658 INFO: Processing standard module hook 'hook-pickle.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+2638 INFO: Processing standard module hook 'hook-heapq.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+2854 INFO: Caching module dependency graph...
+2878 INFO: Analyzing /workspace/kaoshi/app.py
+2915 INFO: Processing standard module hook 'hook-pandas.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+3620 INFO: Processing standard module hook 'hook-platform.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+3634 INFO: Processing standard module hook 'hook-sysconfig.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+3648 INFO: Processing standard module hook 'hook-numpy.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+3817 INFO: Processing pre-safe-import-module hook 'hook-typing_extensions.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
+3818 INFO: SetuptoolsInfo: initializing cached setuptools info...
+4817 INFO: Processing standard module hook 'hook-_ctypes.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+5189 INFO: Processing standard module hook 'hook-difflib.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+5324 INFO: Processing standard module hook 'hook-multiprocessing.util.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+5374 INFO: Processing standard module hook 'hook-xml.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+6284 INFO: Processing standard module hook 'hook-pytz.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+7844 INFO: Processing standard module hook 'hook-pandas.io.formats.style.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+9072 INFO: Processing standard module hook 'hook-pandas.plotting.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+9108 INFO: Processing standard module hook 'hook-matplotlib.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
 mkdir -p failed for path /home/agent/.config/matplotlib: [Errno 30] Read-only file system: '/home/agent/.config/matplotlib'
-Matplotlib created a temporary cache directory at /tmp/matplotlib-kwe3wejc because there was an issue with the default path (/home/agent/.config/matplotlib); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
-9484 INFO: Processing pre-safe-import-module hook 'hook-packaging.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
-9549 INFO: Processing pre-safe-import-module hook 'hook-gi.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
-9739 INFO: Processing standard module hook 'hook-matplotlib.backend_bases.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-9812 INFO: Processing standard module hook 'hook-PIL.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-9881 INFO: Processing standard module hook 'hook-PIL.Image.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-10078 INFO: Processing standard module hook 'hook-xml.etree.cElementTree.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-10186 INFO: Processing standard module hook 'hook-PIL.ImageFilter.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-10999 INFO: Processing standard module hook 'hook-jinja2.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/_pyinstaller_hooks_contrib/stdhooks'
-11501 INFO: Processing standard module hook 'hook-matplotlib.backends.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-11555 INFO: Processing standard module hook 'hook-matplotlib.pyplot.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-12199 INFO: Processing standard module hook 'hook-dateutil.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/_pyinstaller_hooks_contrib/stdhooks'
-12242 INFO: Processing pre-safe-import-module hook 'hook-six.moves.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
-14351 INFO: Processing standard module hook 'hook-sqlite3.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-14461 INFO: Processing standard module hook 'hook-pandas.io.clipboard.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-14738 INFO: Processing standard module hook 'hook-xml.dom.domreg.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-15761 INFO: Processing pre-safe-import-module hook 'hook-importlib_metadata.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
-15761 INFO: Setuptools: 'importlib_metadata' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.importlib_metadata'!
-15766 INFO: Processing standard module hook 'hook-setuptools.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-15775 INFO: Processing pre-safe-import-module hook 'hook-distutils.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
-15794 INFO: Processing pre-safe-import-module hook 'hook-jaraco.functools.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
-15794 INFO: Setuptools: 'jaraco.functools' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.jaraco.functools'!
-15801 INFO: Processing pre-safe-import-module hook 'hook-more_itertools.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
-15801 INFO: Setuptools: 'more_itertools' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.more_itertools'!
-15889 INFO: Processing standard module hook 'hook-_osx_support.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-16082 INFO: Processing pre-safe-import-module hook 'hook-jaraco.text.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
-16082 INFO: Setuptools: 'jaraco.text' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.jaraco.text'!
-16088 INFO: Processing standard module hook 'hook-setuptools._vendor.jaraco.text.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-16089 INFO: Processing pre-safe-import-module hook 'hook-importlib_resources.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
-16089 INFO: Processing pre-safe-import-module hook 'hook-jaraco.context.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
-16089 INFO: Setuptools: 'jaraco.context' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.jaraco.context'!
-16317 INFO: Processing pre-safe-import-module hook 'hook-tomli.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
-16317 INFO: Setuptools: 'tomli' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.tomli'!
-16726 INFO: Processing pre-safe-import-module hook 'hook-wheel.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
-16726 INFO: Setuptools: 'wheel' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.wheel'!
-16759 INFO: Processing standard module hook 'hook-setuptools._vendor.importlib_metadata.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-16786 INFO: Processing pre-safe-import-module hook 'hook-zipp.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
-16786 INFO: Setuptools: 'zipp' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.zipp'!
-16840 INFO: Processing module hooks (post-graph stage)...
-17091 INFO: Processing standard module hook 'hook-PIL.SpiderImagePlugin.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-17117 INFO: Processing standard module hook 'hook-matplotlib.backends.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-17117 INFO: Matplotlib backend selection method: automatic discovery of used backends
-17133 INFO: Discovered Matplotlib backend(s) via `matplotlib.use()` call in module 'charts': ['Agg']
-17134 INFO: The following Matplotlib backends were discovered by scanning for `matplotlib.use()` calls: ['Agg']. If your backend of choice is not in this list, either add a `matplotlib.use()` call to your code, or configure the backend collection via hook options (see: https://pyinstaller.org/en/stable/hooks-config.html#matplotlib-hooks).
-17134 INFO: Selected matplotlib backends: ['Agg']
-17281 INFO: Performing binary vs. data reclassification (838 entries)
-17291 INFO: Looking for ctypes DLLs
-17319 WARNING: Library user32 required via ctypes not found
-17333 WARNING: Library msvcrt required via ctypes not found
-17382 INFO: Analyzing run-time hooks ...
-17390 INFO: Including run-time hook 'pyi_rth_inspect.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/rthooks'
-17391 INFO: Including run-time hook 'pyi_rth_pkgutil.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/rthooks'
-17392 INFO: Including run-time hook 'pyi_rth_multiprocessing.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/rthooks'
-17393 INFO: Including run-time hook 'pyi_rth_mplconfig.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/rthooks'
-17394 INFO: Processing pre-find-module-path hook 'hook-_pyi_rth_utils.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_find_module_path'
-17395 INFO: Processing standard module hook 'hook-_pyi_rth_utils.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
-17396 INFO: Including run-time hook 'pyi_rth_setuptools.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/rthooks'
-17426 INFO: Creating base_library.zip...
-17439 INFO: Looking for dynamic libraries
-17929 INFO: Warnings written to /workspace/kaoshi/build/work/26/warn-26.txt
-17983 INFO: Graph cross-reference written to /workspace/kaoshi/build/work/26/xref-26.html
-18015 INFO: checking PYZ
-18015 INFO: Building PYZ because PYZ-00.toc is non existent
-18015 INFO: Building PYZ (ZlibArchive) /workspace/kaoshi/build/work/26/PYZ-00.pyz
-19200 INFO: Building PYZ (ZlibArchive) /workspace/kaoshi/build/work/26/PYZ-00.pyz completed successfully.
-19227 INFO: checking PKG
-19227 INFO: Building PKG because PKG-00.toc is non existent
-19227 INFO: Building PKG (CArchive) 26.pkg
-39936 INFO: Building PKG (CArchive) 26.pkg completed successfully.
-39948 INFO: Bootloader /workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/bootloader/Linux-64bit-intel/run
-39948 INFO: checking EXE
-39948 INFO: Building EXE because EXE-00.toc is non existent
-39948 INFO: Building EXE from EXE-00.toc
-39950 INFO: Copying bootloader EXE to /workspace/kaoshi/build/artifacts/26
-39950 INFO: Appending PKG archive to custom ELF section in EXE
-40037 INFO: Building EXE from EXE-00.toc completed successfully.
-40048 INFO: Build complete! The results are available in: /workspace/kaoshi/build/artifacts
+Matplotlib created a temporary cache directory at /tmp/matplotlib-2jw66410 because there was an issue with the default path (/home/agent/.config/matplotlib); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+9300 INFO: Processing pre-safe-import-module hook 'hook-packaging.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
+9363 INFO: Processing pre-safe-import-module hook 'hook-gi.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
+9539 INFO: Processing standard module hook 'hook-matplotlib.backend_bases.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+9618 INFO: Processing standard module hook 'hook-PIL.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+9687 INFO: Processing standard module hook 'hook-PIL.Image.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+9862 INFO: Processing standard module hook 'hook-xml.etree.cElementTree.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+9973 INFO: Processing standard module hook 'hook-PIL.ImageFilter.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+10724 INFO: Processing standard module hook 'hook-jinja2.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+11223 INFO: Processing standard module hook 'hook-matplotlib.backends.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+11277 INFO: Processing standard module hook 'hook-matplotlib.pyplot.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+11875 INFO: Processing standard module hook 'hook-dateutil.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+11917 INFO: Processing pre-safe-import-module hook 'hook-six.moves.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
+13920 INFO: Processing standard module hook 'hook-sqlite3.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+14030 INFO: Processing standard module hook 'hook-pandas.io.clipboard.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+14281 INFO: Processing standard module hook 'hook-xml.dom.domreg.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+15259 INFO: Processing pre-safe-import-module hook 'hook-importlib_metadata.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
+15259 INFO: Setuptools: 'importlib_metadata' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.importlib_metadata'!
+15263 INFO: Processing standard module hook 'hook-setuptools.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+15272 INFO: Processing pre-safe-import-module hook 'hook-distutils.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
+15292 INFO: Processing pre-safe-import-module hook 'hook-jaraco.functools.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
+15292 INFO: Setuptools: 'jaraco.functools' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.jaraco.functools'!
+15298 INFO: Processing pre-safe-import-module hook 'hook-more_itertools.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
+15298 INFO: Setuptools: 'more_itertools' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.more_itertools'!
+15390 INFO: Processing standard module hook 'hook-_osx_support.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+15579 INFO: Processing pre-safe-import-module hook 'hook-jaraco.text.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
+15579 INFO: Setuptools: 'jaraco.text' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.jaraco.text'!
+15585 INFO: Processing standard module hook 'hook-setuptools._vendor.jaraco.text.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+15585 INFO: Processing pre-safe-import-module hook 'hook-importlib_resources.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
+15586 INFO: Processing pre-safe-import-module hook 'hook-jaraco.context.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
+15586 INFO: Setuptools: 'jaraco.context' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.jaraco.context'!
+15806 INFO: Processing pre-safe-import-module hook 'hook-tomli.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
+15806 INFO: Setuptools: 'tomli' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.tomli'!
+16180 INFO: Processing pre-safe-import-module hook 'hook-wheel.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
+16180 INFO: Setuptools: 'wheel' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.wheel'!
+16213 INFO: Processing standard module hook 'hook-setuptools._vendor.importlib_metadata.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+16240 INFO: Processing pre-safe-import-module hook 'hook-zipp.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
+16240 INFO: Setuptools: 'zipp' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.zipp'!
+16293 INFO: Processing module hooks (post-graph stage)...
+16531 INFO: Processing standard module hook 'hook-PIL.SpiderImagePlugin.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+16557 INFO: Processing standard module hook 'hook-matplotlib.backends.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+16557 INFO: Matplotlib backend selection method: automatic discovery of used backends
+16573 INFO: Discovered Matplotlib backend(s) via `matplotlib.use()` call in module 'charts': ['Agg']
+16573 INFO: The following Matplotlib backends were discovered by scanning for `matplotlib.use()` calls: ['Agg']. If your backend of choice is not in this list, either add a `matplotlib.use()` call to your code, or configure the backend collection via hook options (see: https://pyinstaller.org/en/stable/hooks-config.html#matplotlib-hooks).
+16573 INFO: Selected matplotlib backends: ['Agg']
+16711 INFO: Performing binary vs. data reclassification (838 entries)
+16721 INFO: Looking for ctypes DLLs
+16747 WARNING: Library user32 required via ctypes not found
+16760 WARNING: Library msvcrt required via ctypes not found
+16809 INFO: Analyzing run-time hooks ...
+16817 INFO: Including run-time hook 'pyi_rth_inspect.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/rthooks'
+16819 INFO: Including run-time hook 'pyi_rth_pkgutil.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/rthooks'
+16820 INFO: Including run-time hook 'pyi_rth_multiprocessing.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/rthooks'
+16821 INFO: Including run-time hook 'pyi_rth_mplconfig.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/rthooks'
+16822 INFO: Processing pre-find-module-path hook 'hook-_pyi_rth_utils.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_find_module_path'
+16822 INFO: Processing standard module hook 'hook-_pyi_rth_utils.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+16823 INFO: Including run-time hook 'pyi_rth_setuptools.py' from '/workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/hooks/rthooks'
+16853 INFO: Creating base_library.zip...
+16865 INFO: Looking for dynamic libraries
+17326 INFO: Warnings written to /workspace/kaoshi/build/work/26/warn-26.txt
+17382 INFO: Graph cross-reference written to /workspace/kaoshi/build/work/26/xref-26.html
+17413 INFO: checking PYZ
+17413 INFO: Building PYZ because PYZ-00.toc is non existent
+17413 INFO: Building PYZ (ZlibArchive) /workspace/kaoshi/build/work/26/PYZ-00.pyz
+18530 INFO: Building PYZ (ZlibArchive) /workspace/kaoshi/build/work/26/PYZ-00.pyz completed successfully.
+18566 INFO: checking PKG
+18566 INFO: Building PKG because PKG-00.toc is non existent
+18566 INFO: Building PKG (CArchive) 26.pkg
+38907 INFO: Building PKG (CArchive) 26.pkg completed successfully.
+38917 INFO: Bootloader /workspace/kaoshi/.venv/lib/python3.12/site-packages/PyInstaller/bootloader/Linux-64bit-intel/run
+38917 INFO: checking EXE
+38917 INFO: Building EXE because EXE-00.toc is non existent
+38917 INFO: Building EXE from EXE-00.toc
+38919 INFO: Copying bootloader EXE to /workspace/kaoshi/build/artifacts/26
+38919 INFO: Appending PKG archive to custom ELF section in EXE
+39011 INFO: Building EXE from EXE-00.toc completed successfully.
+39020 INFO: Build complete! The results are available in: /workspace/kaoshi/build/artifacts

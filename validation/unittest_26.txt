@@ -18,13 +18,13 @@ test_api_success_and_error_no_real_network (test_llm.LLMTests.test_api_success_a
 test_configuration_persists_and_never_echoes_secret (test_llm.LLMTests.test_configuration_persists_and_never_echoes_secret) ... ok
 test_context_and_selected_device (test_llm.LLMTests.test_context_and_selected_device) ... ok
 test_login_roles_and_csrf (test_llm.LLMTests.test_login_roles_and_csrf) ... ok
-test_bare_executable_directory_recovers_all_inputs (test_packaging.FrozenInputTests.test_bare_executable_directory_recovers_all_inputs) ... 已从随包资源创建本地文件：/tmp/tmpdn38o_fh/standalone/exam_id.txt
-已从随包资源创建本地文件：/tmp/tmpdn38o_fh/standalone/data/设备台账数据.csv
-已从随包资源创建本地文件：/tmp/tmpdn38o_fh/standalone/data/设备维修记录.csv
+test_bare_executable_directory_recovers_all_inputs (test_packaging.FrozenInputTests.test_bare_executable_directory_recovers_all_inputs) ... 已从随包资源创建本地文件：/tmp/tmpoxiu6mky/standalone/exam_id.txt
+已从随包资源创建本地文件：/tmp/tmpoxiu6mky/standalone/data/设备台账数据.csv
+已从随包资源创建本地文件：/tmp/tmpoxiu6mky/standalone/data/设备维修记录.csv
 ok
-test_existing_exam_id_data_and_database_are_not_overwritten (test_packaging.FrozenInputTests.test_existing_exam_id_data_and_database_are_not_overwritten) ... 已从随包资源创建本地文件：/tmp/tmpvosgngnj/standalone/exam_id.txt
-已从随包资源创建本地文件：/tmp/tmpvosgngnj/standalone/data/设备台账数据.csv
-已从随包资源创建本地文件：/tmp/tmpvosgngnj/standalone/data/设备维修记录.csv
+test_existing_exam_id_data_and_database_are_not_overwritten (test_packaging.FrozenInputTests.test_existing_exam_id_data_and_database_are_not_overwritten) ... 已从随包资源创建本地文件：/tmp/tmpb6tik3zu/standalone/exam_id.txt
+已从随包资源创建本地文件：/tmp/tmpb6tik3zu/standalone/data/设备台账数据.csv
+已从随包资源创建本地文件：/tmp/tmpb6tik3zu/standalone/data/设备维修记录.csv
 ok
 test_old_bundle_fails_clearly_before_partial_initialization (test_packaging.FrozenInputTests.test_old_bundle_fails_clearly_before_partial_initialization) ... ok
 test_source_mode_does_not_seed_test_or_user_directories (test_packaging.FrozenInputTests.test_source_mode_does_not_seed_test_or_user_directories) ... ok
@@ -42,6 +42,6 @@ test_11_role_is_checked_from_database_on_every_request (test_web.WebTests.test_1
 test_12_account_survives_real_process_restart (test_web.WebTests.test_12_account_survives_real_process_restart) ... ok
 
 ----------------------------------------------------------------------
-Ran 31 tests in 8.668s
+Ran 31 tests in 8.889s
 
 OK
