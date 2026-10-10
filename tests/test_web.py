@@ -53,7 +53,7 @@ class WebTests(unittest.TestCase):
         parser=TableParser();parser.feed(self.client.get(url).get_data(as_text=True));return parser.rows
 
     def test_01_unauthenticated_all_business_routes_and_post(self):
-        for url in ['/','/devices','/devices/SB-0001','/lifecycle','/analytics','/report','/admin','/charts/category','/download/设备台账数据']:
+        for url in ['/','/devices','/devices/SB-0001','/lifecycle','/analytics','/frequency','/report','/admin','/charts/category','/download/设备台账数据']:
             r=self.client.get(url);self.assertEqual(r.status_code,302,url);self.assertEqual(r.location,'/login')
         self.assertEqual(self.client.post('/admin',data={'username':'intruder','password':'123456'}).status_code,302)
 
@@ -66,7 +66,7 @@ class WebTests(unittest.TestCase):
 
     def test_03_user_pages_and_direct_post_forbidden(self):
         self.login()
-        for url in ['/devices','/devices/SB-0001','/lifecycle','/analytics','/report']:
+        for url in ['/devices','/devices/SB-0001','/lifecycle','/analytics','/frequency','/report']:
             r=self.client.get(url);self.assertEqual(r.status_code,200,url);self.assertIn('抽签序号：验收47',r.get_data(as_text=True))
         self.assertEqual(self.client.get('/admin').status_code,403)
         for payload in [{},{'csrf_token':self.csrf(),'username':'intruder','password':'123456','role':'admin'}]:
@@ -144,6 +144,62 @@ class WebTests(unittest.TestCase):
                 p.write_text(value,encoding='utf-8')
                 with self.assertRaises(ValueError):read_exam_id(Path(tmp))
             p.write_text('047',encoding='utf-8');self.assertEqual(read_exam_id(Path(tmp)),'047')
+
+    def test_10_frequency_all_devices_and_new_analysis_sections(self):
+        self.login()
+        identifiers=[]
+        for page in range(1,45):
+            identifiers.extend(r[0] for r in self.rows(f'/frequency?page={page}'))
+        self.assertEqual(len(identifiers),1080)
+        self.assertEqual(len(set(identifiers)),1080)
+        self.assertEqual(len(self.rows('/frequency?q=SB-0001')),1)
+        for row in self.rows('/frequency?category=数控机床'):self.assertEqual(row[2],'数控机床')
+        html=self.client.get('/analytics').get_data(as_text=True)
+        for name in ['故障类型分布','不同月份停机时长','维修方式占比','报废原因分布','不同类别设备的故障类型差异','季节与日历月份分布']:
+            self.assertIn(name,html)
+        self.assertIn('class="sidebar"',html)
+        self.assertEqual(len(self.app.extensions['chart_files']),15)
+
+    def test_11_role_is_checked_from_database_on_every_request(self):
+        from auth import add_user
+        add_user(self.app.config['DB_PATH'],'demoted','Demote@123','admin')
+        self.login('demoted','Demote@123')
+        self.assertEqual(self.client.get('/admin').status_code,200)
+        with connection(self.app.config['DB_PATH']) as db:
+            db.execute("UPDATE users SET role='user' WHERE username='demoted'")
+        with self.client.session_transaction() as state:state['role']='admin'
+        self.assertEqual(self.client.get('/admin').status_code,403)
+        self.assertEqual(self.client.post('/admin',data={'role':'admin','username':'bypass','password':'123456','csrf_token':self.csrf()}).status_code,403)
+        self.assertIsNone(find_user(self.app.config['DB_PATH'],username='bypass'))
+        with connection(self.app.config['DB_PATH']) as db:db.execute("DELETE FROM users WHERE username='demoted'")
+        self.assertEqual(self.client.get('/devices').status_code,302)
+
+    def test_12_account_survives_real_process_restart(self):
+        import subprocess,sys
+        setup = '''
+import sys
+from app import create_app
+app=create_app(sys.argv[1],testing=True,make_charts=False)
+client=app.test_client();client.get('/login')
+with client.session_transaction() as s:token=s['csrf_token']
+assert client.post('/login',data={'username':'admin','password':'Admin@123456','csrf_token':token}).status_code==302
+assert client.get('/admin').status_code==200
+with client.session_transaction() as s:token=s['csrf_token']
+assert client.post('/admin',data={'username':'processjudge','password':'Process@123','role':'user','csrf_token':token}).status_code==302
+'''
+        login = '''
+import sys
+from app import create_app
+app=create_app(sys.argv[1],testing=True,make_charts=False)
+client=app.test_client();client.get('/login')
+with client.session_transaction() as s:token=s['csrf_token']
+assert client.post('/login',data={'username':'processjudge','password':'Process@123','csrf_token':token}).status_code==302
+assert client.get('/frequency').status_code==200
+assert client.get('/admin').status_code==403
+'''
+        for code in [setup,login]:
+            result=subprocess.run([sys.executable,'-c',code,str(self.root)],cwd=ROOT,capture_output=True,text=True,timeout=30)
+            self.assertEqual(result.returncode,0,result.stderr)
 
 
 if __name__=='__main__':unittest.main()

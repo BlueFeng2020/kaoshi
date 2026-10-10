@@ -29,7 +29,7 @@ class RealDataTests(unittest.TestCase):
         self.assertEqual(list(s.devices.columns[:len(DEVICE_COLUMNS)]),DEVICE_COLUMNS)
         self.assertEqual(list(s.repairs.columns[:len(REPAIR_COLUMNS)]),REPAIR_COLUMNS)
         self.assertEqual(list(s.devices.columns[len(DEVICE_COLUMNS):]),['数据质量标记','抽签序号'])
-        self.assertEqual(list(s.repairs.columns[len(REPAIR_COLUMNS):]),['数据质量标记','抽签序号'])
+        self.assertEqual(list(s.repairs.columns[len(REPAIR_COLUMNS):]),['故障类型原值','故障类型处理依据','数据质量标记','抽签序号'])
         self.assertEqual(s.summary['在用设备数'],870)
         self.assertEqual(s.summary['已报废设备数'],210)
         self.assertEqual(s.summary['原始未维修设备数'],170)
@@ -43,7 +43,8 @@ class RealDataTests(unittest.TestCase):
         self.assertEqual(self.data.summary['周期排除设备数'],4)
         self.assertEqual(self.data.summary['无效维修单数'],3)
         self.assertEqual(self.data.numbers[REPAIR_FILE,'停机时长(小时)'].isna().sum(),37)
-        self.assertEqual((self.data.repairs['故障类型']=='未分类').sum(),56)
+        self.assertEqual((self.data.repairs['故障类型']=='未分类').sum(),59)
+        self.assertEqual(self.count('故障现象与类型疑似不一致'),3)
 
     def test_real_analysis_reconciles(self):
         s=self.data
@@ -67,10 +68,54 @@ class RealDataTests(unittest.TestCase):
             self.assertTrue(p.exists())
             if p.suffix=='.csv':
                 self.assertTrue(p.read_bytes().startswith(b'\xef\xbb\xbf'))
-        self.assertEqual(len(pd.read_csv(Path(self.tmp.name)/'设备维修记录_TEST47.csv')),3761)
+        clean=pd.read_csv(Path(self.tmp.name)/'设备维修记录_TEST47.csv')
+        rejected=pd.read_csv(Path(self.tmp.name)/'维修剔除记录_TEST47.csv')
+        self.assertEqual(len(clean),3758)
+        self.assertEqual(len(rejected),3)
+        self.assertFalse(set(clean['维修单号']) & set(rejected['维修单号']))
+        self.assertEqual(set(clean['维修单号'])|set(rejected['维修单号']),set(self.data.raw[REPAIR_FILE]['维修单号']))
         for label in ['设备台账数据','设备维修记录']:
             frame=pd.read_csv(Path(self.tmp.name)/f'{label}_TEST47.csv',encoding='utf-8-sig',dtype=str)
             self.assertTrue(frame['抽签序号'].eq('TEST47').all())
+
+    def test_fault_conflicts_and_reconciliation_are_evidence_based(self):
+        s=self.data
+        self.assertEqual(len(s.fault_review),3)
+        self.assertTrue(s.fault_review['清洗后故障类型'].eq('未分类').all())
+        for row in s.fault_review.to_dict('records'):
+            self.assertNotEqual(row['故障类型原值'],row['候选故障类型'])
+            self.assertIn(row['故障现象描述'],row['故障类型处理依据'])
+        rec=s.reconciliation
+        self.assertEqual(rec['累计停机时长(小时)核验结论'].eq('明细缺失或无效，无法完整核验').sum(),37)
+        self.assertEqual(rec['累计停机时长(小时)核验结论'].eq('与原始明细汇总不一致').sum(),3)
+        self.assertEqual(rec['累计维修费用(元)核验结论'].eq('与原始明细汇总不一致').sum(),37)
+        self.assertEqual(s.devices['累计停机时长(小时)'].eq('').sum(),37)
+        valid=s.repairs.loc[s.valid_repair]
+        expected=valid.groupby('设备编号').size()
+        self.assertTrue(pd.to_numeric(s.devices['累计维修次数']).eq(s.devices['设备编号'].map(expected).fillna(0)).all())
+        sums=pd.to_numeric(valid['维修费用(元)']).groupby(valid['设备编号']).sum()
+        self.assertTrue(pd.to_numeric(s.devices['累计维修费用(元)']).eq(s.devices['设备编号'].map(sums).fillna(0)).all())
+
+    def test_all_extension_tables_reconcile_to_valid_records(self):
+        s=self.data
+        self.assertEqual(len(s.device_frequency),1080)
+        self.assertEqual(s.device_frequency['有效维修次数'].sum(),3758)
+        self.assertEqual(s.device_frequency['有效维修次数'].eq(0).sum(),170)
+        self.assertEqual(s.category_operations['有效维修单数'].sum(),3758)
+        self.assertEqual(s.methods['有效维修次数'].sum(),3758)
+        self.assertAlmostEqual(s.methods['占比(%)'].sum(),100)
+        self.assertEqual(s.retirement['设备数'].sum(),210)
+        self.assertAlmostEqual(s.retirement['占比(%)'].sum(),100)
+        self.assertEqual(s.category_faults.to_numpy().sum(),3758)
+        self.assertEqual(s.seasonal['有效维修次数'].sum(),3758)
+        self.assertEqual(s.seasonal_category.to_numpy().sum(),3758)
+        self.assertAlmostEqual(s.seasonal['已知有效停机小时'].sum(),s.monthly['停机小时合计'].sum())
+        self.assertEqual(s.faults.loc[s.faults['故障类型'].eq('未分类'),'有效维修次数'].iloc[0],59)
+
+    def test_unseen_description_does_not_invent_a_correction(self):
+        from domain_rules import expected_fault_type
+        self.assertIsNone(expected_fault_type('完全陌生的故障现象'))
+        self.assertEqual(expected_fault_type(' 气源压力波动 '),'气动故障')
 
 
 class EdgeCaseTests(unittest.TestCase):

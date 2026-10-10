@@ -45,18 +45,24 @@ def main():
     # Never copy development accounts or session keys into a delivery.
     for name in ['exam_id.txt','README_运行说明.txt','现场验收顺序.txt']:
         shutil.copy2(APP_ROOT/name,target/name)
-    for p in (APP_ROOT/'output').glob(f'*_{exam_id}.*'):
-        if p.is_file():shutil.copy2(p,target/p.name)
+    # Only the two exam data files go beside the EXE; auxiliary reports stay in output/.
+    for label in ['设备台账数据','设备维修记录']:
+        name=f'{label}_{exam_id}.csv'
+        shutil.copy2(APP_ROOT/'output'/name,target/name)
     destination=target/'output'/'charts';destination.mkdir(parents=True,exist_ok=True)
     for p in (APP_ROOT/'output'/'charts').glob(f'*_{exam_id}.png'):shutil.copy2(p,destination/p.name)
     # Execute the final EXE itself, so a missing bundled resource fails the build.
     print('Checking final executable with --prepare...', flush=True)
     subprocess.run([str(target/f'{exam_id}.exe'),'--prepare'],cwd=target,check=True)
+    for label in ['设备台账数据','设备维修记录']:
+        name=f'{label}_{exam_id}.csv'
+        shutil.copy2(target/'output'/name,target/name)
     archive=target.parent/f'{exam_id}.zip'
     with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED) as z:
         for p in sorted(target.rglob('*')):
             relative=p.relative_to(target)
-            if p.is_file() and 'runtime' not in relative.parts and 'matplotlib-cache' not in relative.parts:
+            obsolete_top_report=(len(relative.parts)==1 and p.suffix in ('.csv','.json','.txt') and p.name.endswith(f'_{exam_id}{p.suffix}') and p.name not in {f'设备台账数据_{exam_id}.csv',f'设备维修记录_{exam_id}.csv'})
+            if p.is_file() and not obsolete_top_report and 'runtime' not in relative.parts and 'matplotlib-cache' not in relative.parts:
                 z.write(p,Path(exam_id)/relative)
     print(f'\n最终交付 EXE：{target / (exam_id+".exe")}\n交付 ZIP：{archive}')
     print('请运行上面的 delivery 目录内程序。build/artifacts 只是构建中间目录。')

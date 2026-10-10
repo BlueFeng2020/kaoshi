@@ -1,0 +1,56 @@
+[
+  {
+    "path": "/devices",
+    "width": 1366,
+    "scroll": 1351,
+    "vertical": true,
+    "sidebarRight": 220,
+    "mainLeft": 220,
+    "images": 0,
+    "allImagesLoaded": true
+  },
+  {
+    "path": "/frequency",
+    "width": 1366,
+    "scroll": 1351,
+    "vertical": true,
+    "sidebarRight": 220,
+    "mainLeft": 220,
+    "images": 1,
+    "allImagesLoaded": true
+  },
+  {
+    "path": "/analytics",
+    "width": 1366,
+    "scroll": 1351,
+    "vertical": true,
+    "sidebarRight": 220,
+    "mainLeft": 220,
+    "images": 11,
+    "allImagesLoaded": true
+  },
+  {
+    "path": "/report",
+    "width": 1366,
+    "scroll": 1351,
+    "vertical": true,
+    "sidebarRight": 220,
+    "mainLeft": 220,
+    "images": 0,
+    "allImagesLoaded": true
+  },
+  {
+    "path": "/ai",
+    "width": 1366,
+    "scroll": 1351,
+    "vertical": true,
+    "sidebarRight": 220,
+    "mainLeft": 220,
+    "images": 0,
+    "allImagesLoaded": true
+  },
+  {
+    "mobileWidth": 390,
+    "noHorizontalPageOverflow": true
+  }
+]

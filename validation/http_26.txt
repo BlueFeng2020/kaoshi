@@ -2,7 +2,11 @@ PASS /devices?q=SB-0001
 PASS /devices/SB-0001
 PASS /lifecycle
 PASS /analytics
+PASS /frequency
+PASS /ai
 PASS /report
 PASS /charts/category
 PASS /charts/correlation
+PASS /charts/device_frequency
+PASS /charts/seasonal_category
 PASS live HTTP login, pages, PNG charts and backend role denial

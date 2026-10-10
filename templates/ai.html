@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}LLM 智能分析{% endblock %}
+{% block content %}
+<h1>LLM 智能分析</h1>
+<p class="muted">DeepSeek · 基于本系统真实清洗与统计结果，提供解释和维护建议。</p>
+<div class="notice">此功能需要联网、会消耗 API 额度。点击分析后，将向 DeepSeek 发送统计摘要、问题和本页最近三轮对话；选填设备编号时附带该设备摘要。不会发送账号、密码、维修人员姓名或整份原始 CSV。模型建议供参考，不会修改台账或权限。其余业务页面始终可离线使用。</div>
+<p>连接配置：<strong>{{ '已配置密钥' if configured else '尚未配置密钥' }}</strong> · 模型：deepseek-chat</p>
+{% if current_user.role=='admin' %}<details {% if not configured %}open{% endif %}><summary>管理员：配置或更换 API 密钥</summary><form method="post" action="{{ url_for('ai_settings') }}" class="filters"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><label>DeepSeek API Key<input name="api_key" type="password" autocomplete="new-password" placeholder="粘贴密钥（保存后不回显）" required maxlength="256"></label><button>保存密钥</button></form><p class="muted">只存放在程序旁 runtime/deepseek.key，请勿分享该文件。若设置了 DEEPSEEK_API_KEY 环境变量，则优先使用环境变量。</p></details>{% endif %}
+<section><h2>一键分析或自由提问</h2><form id="ai-form" action="{{ url_for('ai_analyze') }}" method="post"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><label>指定设备编号（可选）<input name="device_id" placeholder="例如 SB-0001；空白为全局分析" maxlength="80"></label><div class="ai-actions"><button type="button" class="ai-prompt" data-question="请综合分析设备使用、生命周期、维修和停机情况，列出三项优先维护建议，并引用真实数值。">综合使用情况</button><button type="button" class="ai-prompt" data-question="请分析在用时长、报废完整生命周期与维修次数的关系，说明限制及更新建议。">生命周期与更新</button><button type="button" class="ai-prompt" data-question="请分析故障类型、停机月份及高维修次数设备，提出减少停机的措施。">故障与停机</button><button type="button" class="ai-prompt" data-question="请分析各车间维修费用、维修方式和类别差异，提出可验证的降本建议。">费用与维保</button></div><label for="ai-question">问题<textarea id="ai-question" name="question" rows="3" maxlength="2000" required placeholder="例如：哪些设备类别应优先安排预防性维护？"></textarea></label><div class="ai-actions"><button id="ai-send" type="submit">发送给 DeepSeek 分析</button><button id="ai-clear" type="button">清空本页对话</button></div></form><p id="ai-status" role="status"></p><div id="ai-messages" aria-live="polite"></div><noscript>请启用浏览器 JavaScript 后使用对话功能。</noscript></section>
+<script src="{{ url_for('static',filename='ai.js') }}" defer></script>
+{% endblock %}

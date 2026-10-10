@@ -17,7 +17,7 @@ def main():
     with opener.open(base+'/login',body,timeout=20) as r:
         assert r.url.endswith('/devices')
         assert b'id="total-count">1080' in r.read()
-    for path in ['/devices?q=SB-0001','/devices/SB-0001','/lifecycle','/analytics','/report','/charts/category','/charts/correlation']:
+    for path in ['/devices?q=SB-0001','/devices/SB-0001','/lifecycle','/analytics','/frequency','/ai','/report','/charts/category','/charts/correlation','/charts/device_frequency','/charts/seasonal_category']:
         with opener.open(base+path,timeout=20) as r:
             assert r.status==200
             content=r.read();assert len(content)>100

@@ -2,7 +2,9 @@
 PASS /devices/SB-0001 shows 抽签序号：26
 PASS /lifecycle shows 抽签序号：26
 PASS /analytics shows 抽签序号：26
+PASS /frequency shows 抽签序号：26
 PASS /report shows 抽签序号：26
 PASS /admin shows 抽签序号：26
+PASS /ai shows 抽签序号：26
 PASS output/设备台账数据_26.csv: 1080 rows; 16 original columns preserved; every 抽签序号 is 26
-PASS output/设备维修记录_26.csv: 3761 rows; 14 original columns preserved; every 抽签序号 is 26
+PASS output/设备维修记录_26.csv: 3758 rows; 14 original columns preserved; every 抽签序号 is 26

@@ -1,0 +1,5 @@
+{
+  "status": "FAILED",
+  "error": "无法连接 DeepSeek 或等待超时，请检查网络后重试。离线统计不受影响。",
+  "elapsed_seconds": 0.01
+}

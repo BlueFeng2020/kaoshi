@@ -6,12 +6,13 @@ import secrets
 import threading
 import webbrowser
 import pandas as pd
-from flask import Flask, abort, flash, g, redirect, render_template, request, send_from_directory, session, url_for
+from flask import Flask, abort, flash, g, redirect, render_template, request, send_from_directory, session, url_for, jsonify
 from markupsafe import Markup
 from config import APP_ROOT, RESOURCE_ROOT, CUTOFF, read_exam_id, prepare_local_inputs
 from processing import Dataset
 from charts import generate_charts
 import auth
+import llm
 
 
 def create_app(root=None, testing=False, make_charts=True):
@@ -37,6 +38,7 @@ def create_app(root=None, testing=False, make_charts=True):
     images=generate_charts(data,chart_dir) if make_charts else {}
     app.extensions['dataset']=data
     app.extensions['chart_files']=images
+    ai_lock=threading.Lock()
 
     def logged_in(view):
         @wraps(view)
@@ -64,6 +66,12 @@ def create_app(root=None, testing=False, make_charts=True):
     def load_user():
         user_id=session.get('user_id')
         g.user=auth.find_user(app.config['DB_PATH'],user_id=user_id) if user_id else None
+        # Check every business route before its view executes; trust roles from SQLite only.
+        if request.endpoint and request.endpoint not in ('login','static'):
+            if not g.user:
+                return redirect(url_for('login'))
+            if request.endpoint=='admin' and g.user['role']!='admin':
+                abort(403)
 
     @app.context_processor
     def common():
@@ -132,12 +140,67 @@ def create_app(root=None, testing=False, make_charts=True):
     @app.get('/analytics')
     @logged_in
     def analytics():
-        return render_template('analytics.html',summary=data.summary,faults=table(data.faults),monthly=table(data.monthly),workshops=table(data.workshops),images=images)
+        return render_template('analytics.html',summary=data.summary,faults=table(data.faults),monthly=table(data.monthly),workshops=table(data.workshops),images=images,
+            category_operations=table(data.category_operations),methods=table(data.methods),retirement=table(data.retirement),
+            category_faults=table(data.category_faults.reset_index()),seasonal=table(data.seasonal),seasonal_category=table(data.seasonal_category.reset_index()))
+
+    @app.get('/frequency')
+    @logged_in
+    def frequency():
+        frame=data.device_frequency
+        q=request.args.get('q','').strip()
+        category=request.args.get('category','')
+        if q:
+            frame=frame.loc[frame['设备编号'].str.contains(q,regex=False,case=False)|frame['设备名称'].str.contains(q,regex=False,case=False)]
+        if category:frame=frame.loc[frame['设备类别'].eq(category)]
+        pages=max(1,math.ceil(len(frame)/25));page=max(1,min(request.args.get('page',1,type=int),pages))
+        def page_url(n):return url_for('frequency',q=q,category=category,page=n)
+        return render_template('frequency.html',detail=table(frame.iloc[(page-1)*25:page*25]),count=len(frame),total=len(data.device_frequency),q=q,
+            category=category,categories=sorted(data.devices['设备类别'].unique()),page=page,pages=pages,page_url=page_url,
+            zero_count=int(data.device_frequency['有效维修次数'].eq(0).sum()))
 
     @app.get('/report')
     @logged_in
     def report():
-        return render_template('report.html',report=data.report,audit=table(pd.DataFrame(data.audit)),excluded=table(data.life.loc[~data.lifecycle_valid]),exports=data.exports)
+        return render_template('report.html',report=data.report,audit=table(pd.DataFrame(data.audit)),excluded=table(data.life.loc[~data.lifecycle_valid]),exports=data.exports,
+            fault_review=table(data.fault_review),rejected=table(data.repairs.loc[~data.valid_repair]),reconciliation=table(data.reconciliation))
+
+    @app.get('/ai')
+    @logged_in
+    def ai():
+        return render_template('ai.html',configured=bool(llm.read_key(runtime)))
+
+    @app.post('/ai/settings')
+    @admin_only
+    def ai_settings():
+        check_csrf()
+        try:
+            llm.save_key(runtime,request.form.get('api_key',''))
+            flash('API 密钥已保存到本机 runtime 目录；不会显示或随交付文件打包。','success')
+        except ValueError as exc:
+            flash(str(exc),'error')
+        return redirect(url_for('ai'))
+
+    @app.post('/ai/analyze')
+    @logged_in
+    def ai_analyze():
+        import json
+        check_csrf()
+        question=request.form.get('question','').strip()
+        if not question or len(question)>2000:
+            return jsonify(error='请输入 1—2000 字的问题。'),400
+        if not ai_lock.acquire(blocking=False):
+            return jsonify(error='已有分析正在进行，请完成后再试。'),429
+        try:
+            history=json.loads(request.form.get('history','[]'))
+            context=llm.context_for(data,request.form.get('device_id','').strip())
+            return jsonify(llm.analyze(llm.read_key(runtime),context,question,history))
+        except (ValueError,TypeError):
+            return jsonify(error='问题或设备编号无效，请检查完整设备编号和对话内容。'),400
+        except llm.AnalysisError as exc:
+            return jsonify(error=str(exc)),502
+        finally:
+            ai_lock.release()
 
     @app.get('/download/<label>')
     @logged_in

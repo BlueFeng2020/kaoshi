@@ -47,7 +47,7 @@ def generate_charts(data, root):
     save('correlation','周期与故障频次（全量有效维修）',scatter)
     def bar(ax,frame,x,y,ylabel):
         ax.bar(frame[x],frame[y],color='#147d92');ax.tick_params(axis='x',labelrotation=30);ax.set_ylabel(ylabel)
-    save('faults','故障类型分布（原始全量，含异常）',lambda ax:bar(ax,data.faults,'故障类型','原始维修次数','维修次数'))
+    save('faults','故障类型分布（清洗后有效记录，含未分类）',lambda ax:bar(ax,data.faults,'故障类型','有效维修次数','有效维修次数'))
     def monthly(ax):
         t=data.monthly; x=list(range(len(t)))
         ax.plot(x,t['停机小时合计'],color='#147d92',linewidth=1.5)
@@ -56,4 +56,25 @@ def generate_charts(data, root):
     save('monthly','按报修月份汇总停机时长（全量有效维修）',monthly)
     save('workshop_count','车间维保频次（全量有效维修）',lambda ax:bar(ax,data.workshops,'所属车间','有效维修单数','有效维修单数'))
     save('workshop_cost','车间维修费用（排除缺失及负费用）',lambda ax:bar(ax,data.workshops,'所属车间','维修费用合计元','维修费用（元）'))
+    def frequency(ax):
+        top=data.device_frequency.head(20).iloc[::-1]
+        ax.barh(top['设备编号'],top['有效维修次数'],color='#147d92')
+        ax.set_xlabel('有效累计维修次数（同次数按设备编号排序）')
+        ax.tick_params(axis='y',labelsize=8)
+    save('device_frequency','各设备维保频次：全局前20台（完整设备见表格）',frequency)
+    save('category_count','各类别维保频次',lambda ax:bar(ax,data.category_operations,'设备类别','有效维修单数','有效维修单数'))
+    save('category_cost','各类别维修费用',lambda ax:bar(ax,data.category_operations,'设备类别','维修费用合计元','维修费用（元）'))
+    save('methods','维修方式分布',lambda ax:bar(ax,data.methods,'维修方式','有效维修次数','有效维修次数'))
+    save('retirement','已报废设备原因分布（含周期不可计算设备）',lambda ax:bar(ax,data.retirement,'报废原因','设备数','设备数'))
+    def heatmap(ax,frame,label):
+        if frame.empty or not len(frame.columns):
+            ax.text(.5,.5,'无有效数据',ha='center');return
+        im=ax.imshow(frame.to_numpy(),aspect='auto',cmap='Blues')
+        ax.set_xticks(range(len(frame.columns)),frame.columns,rotation=30,ha='right')
+        ax.set_yticks(range(len(frame.index)),frame.index)
+        ax.figure.colorbar(im,ax=ax,label=label)
+        ax.grid(False)
+    save('category_faults','设备类别与故障类型分布',lambda ax:heatmap(ax,data.category_faults,'有效维修次数'))
+    save('seasonal','各日历月停机时长（跨年汇总，未校正月份覆盖）',lambda ax:bar(ax,data.seasonal,'月份序号','已知有效停机小时','已知有效停机小时'))
+    save('seasonal_category','类别季节分布（跨年按日历月累计次数）',lambda ax:heatmap(ax,data.seasonal_category,'有效维修次数'))
     return result
