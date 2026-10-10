@@ -1,0 +1,24 @@
+﻿抽签序号：26
+系统：Linux-6.18.44-x86_64-with-glibc2.41
+Python：3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]
+退出码：0
+
+test_invalid_rows_retained_and_metric_specific_exclusions (test_data.EdgeCaseTests.test_invalid_rows_retained_and_metric_specific_exclusions) ... ok
+test_expected_anomalies_and_masks (test_data.RealDataTests.test_expected_anomalies_and_masks) ... ok
+test_exports_are_real_bom_csv_with_dynamic_id (test_data.RealDataTests.test_exports_are_real_bom_csv_with_dynamic_id) ... ok
+test_real_analysis_reconciles (test_data.RealDataTests.test_real_analysis_reconciles) ... ok
+test_real_shape_and_preservation (test_data.RealDataTests.test_real_shape_and_preservation) ... ok
+test_01_unauthenticated_all_business_routes_and_post (test_web.WebTests.test_01_unauthenticated_all_business_routes_and_post) ... ok
+test_02_login_logout_and_wrong_password (test_web.WebTests.test_02_login_logout_and_wrong_password) ... ok
+test_03_user_pages_and_direct_post_forbidden (test_web.WebTests.test_03_user_pages_and_direct_post_forbidden) ... ok
+test_04_filters_pagination_and_all_original_fields (test_web.WebTests.test_04_filters_pagination_and_all_original_fields) ... ok
+test_05_admin_create_login_and_restart_persistence (test_web.WebTests.test_05_admin_create_login_and_restart_persistence) ... ok
+test_06_validation_csrf_and_role (test_web.WebTests.test_06_validation_csrf_and_role) ... ok
+test_07_charts_downloads_and_local_assets (test_web.WebTests.test_07_charts_downloads_and_local_assets) ... ok
+test_08_empty_account_table_only_initialization (test_web.WebTests.test_08_empty_account_table_only_initialization) ... ok
+test_09_dynamic_id_validation (test_web.WebTests.test_09_dynamic_id_validation) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 4.073s
+
+OK

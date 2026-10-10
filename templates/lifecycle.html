@@ -1,0 +1,7 @@
+{% extends 'base.html' %}{% block title %}生命周期分析{% endblock %}{% block content %}<h1>设备生命周期专项分析</h1>
+<div class="metrics"><div>有效周期样本<strong>{{ summary['周期有效设备数'] }} 台</strong></div><div>排除异常设备<strong>{{ summary['周期排除设备数'] }} 台</strong></div><div>Pearson 相关系数<strong>{{ '%.6f'|format(summary['Pearson相关系数']) if summary['Pearson相关系数'] is not none else '不可计算' }}</strong></div></div>
+<p class="notice">已报废：报废日期 − 投用日期（完整生命周期）；在用：{{ cutoff }} − 投用日期（已运行时长）。以天数除以 365.25；无效、缺失、负周期不纳入平均。在用设备仍在运行，不能当作完整寿命。</p>
+<section><h2>1. 各类别平均实际使用周期</h2><img class="chart" src="{{ url_for('chart',key='category') }}" alt="类别周期图"><div class="table-scroll">{{ category }}</div></section>
+<section><h2>2. 完整生命周期 / 已运行时长分开统计</h2><img class="chart" src="{{ url_for('chart',key='status') }}" alt="状态周期图"><div class="table-scroll">{{ status }}</div><p><a href="{{ url_for('download',label='生命周期设备明细') }}">下载全部设备分组明细 CSV</a></p><details><summary>查看全部设备分组明细</summary><div class="table-scroll tall">{{ detail }}</div></details></section>
+<section><h2>3. 使用周期与累计故障频次关联</h2><p>有效样本数：{{ summary['相关有效样本数'] }}。维修单按清洗后的设备编号关联；采用<strong>全量有效累计维修单数</strong>，含晚于截止日的有效记录。它不是截至截止日的故障次数；明细另列“截止日有效维修单数”。无维修设备计数为 0，不是缺失值填零。</p><p>孤立维修单 {{ summary['孤立维修单数'] }}；台账原始累计维修次数与原始关联明细不一致设备 {{ summary['台账维修次数与原始关联不一致设备数'] }} 台。</p><img class="chart" src="{{ url_for('chart',key='correlation') }}" alt="周期故障散点图"><p class="notice">{{ interpretation }}</p><div class="table-scroll">{{ correlation }}</div></section>
+<section><h2>周期排除明细</h2><div class="table-scroll">{{ excluded }}</div></section>{% endblock %}

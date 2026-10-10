@@ -1,0 +1,8 @@
+PASS /devices?q=SB-0001
+PASS /devices/SB-0001
+PASS /lifecycle
+PASS /analytics
+PASS /report
+PASS /charts/category
+PASS /charts/correlation
+PASS live HTTP login, pages, PNG charts and backend role denial

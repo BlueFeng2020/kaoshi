@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+runtime/
+build/
+dist/
+delivery/
+*.spec
+*.zip
+.mpl-cache/
+output/matplotlib-cache/
