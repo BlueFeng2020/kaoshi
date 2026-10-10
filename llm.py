@@ -48,6 +48,9 @@ def context_for(data, device_id=''):
         '维修方式': records(data.methods),
         '报废原因': records(data.retirement),
         '季节月份': records(data.seasonal),
+        '类别首位故障': records(data.category_preference),
+        '重点季节对比': records(data.seasonal_focus),
+        '季节口径': '重点期与其余期按最早至最晚报修覆盖年月数均摊，含首末不完整月份；未校正运行暴露量，不代表季节因果。',
     }
     if device_id:
         subset = data.devices.loc[data.devices['设备编号'].eq(device_id)]

@@ -77,4 +77,23 @@ def generate_charts(data, root):
     save('category_faults','设备类别与故障类型分布',lambda ax:heatmap(ax,data.category_faults,'有效维修次数'))
     save('seasonal','各日历月停机时长（跨年汇总，未校正月份覆盖）',lambda ax:bar(ax,data.seasonal,'月份序号','已知有效停机小时','已知有效停机小时'))
     save('seasonal_category','类别季节分布（跨年按日历月累计次数）',lambda ax:heatmap(ax,data.seasonal_category,'有效维修次数'))
+    save('category_fault_shares','类别内故障占比（每行分母为该类别全部有效维修）',lambda ax:heatmap(ax,data.category_fault_shares,'类别内占比（%）'))
+    def seasonal_hours(ax):
+        from analysis_dimensions import FOCUS_WINDOWS
+        for category in FOCUS_WINDOWS:
+            part=data.category_monthly.loc[data.category_monthly['设备类别'].eq(category)]
+            ax.plot(part['月份序号'],part['已知停机小时'],marker='o',markersize=3,label=category)
+        ax.axvspan(6.5,9.5,color='#ffdf85',alpha=.25)
+        ax.axvspan(.5,2.5,color='#b8d9ff',alpha=.25)
+        ax.set_xticks(range(1,13));ax.set_xlabel('日历月（跨年累计；蓝色1—2月、黄色7—9月）')
+        ax.set_ylabel('已知有效停机小时');ax.legend(fontsize=8,ncol=3)
+    save('seasonal_hours','重点类别各月停机时长（缺失不补零）',seasonal_hours)
+    def seasonal_compare(ax,metric,ylabel):
+        import numpy as np
+        frame=data.seasonal_focus;x=np.arange(len(frame));width=.36
+        ax.bar(x-width/2,frame['重点期'+metric],width,label='重点月份',color='#e99a35')
+        ax.bar(x+width/2,frame['其余期'+metric],width,label='其余月份',color='#147d92')
+        ax.set_xticks(x,frame['设备类别']+'\n'+frame['重点月份']);ax.set_ylabel(ylabel);ax.legend()
+    save('seasonal_compare_count','重点季节与其余月份对比（按覆盖年月数均摊）',lambda ax:seasonal_compare(ax,'月均次数','每覆盖年月平均维修次数'))
+    save('seasonal_compare_hours','重点季节停机负担对比（按覆盖年月数均摊）',lambda ax:seasonal_compare(ax,'月均已知停机小时','每覆盖年月平均已知停机小时'))
     return result

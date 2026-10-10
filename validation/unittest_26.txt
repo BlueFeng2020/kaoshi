@@ -11,17 +11,20 @@ test_fault_conflicts_and_reconciliation_are_evidence_based (test_data.RealDataTe
 test_real_analysis_reconciles (test_data.RealDataTests.test_real_analysis_reconciles) ... ok
 test_real_shape_and_preservation (test_data.RealDataTests.test_real_shape_and_preservation) ... ok
 test_unseen_description_does_not_invent_a_correction (test_data.RealDataTests.test_unseen_description_does_not_invent_a_correction) ... ok
+test_missing_zero_ties_no_samples_and_single_season (test_dimensions.DimensionTests.test_missing_zero_ties_no_samples_and_single_season) ... ok
+test_real_category_shares_and_examples (test_dimensions.DimensionTests.test_real_category_shares_and_examples) ... ok
+test_real_month_hours_and_season_windows (test_dimensions.DimensionTests.test_real_month_hours_and_season_windows) ... ok
 test_api_success_and_error_no_real_network (test_llm.LLMTests.test_api_success_and_error_no_real_network) ... ok
 test_configuration_persists_and_never_echoes_secret (test_llm.LLMTests.test_configuration_persists_and_never_echoes_secret) ... ok
 test_context_and_selected_device (test_llm.LLMTests.test_context_and_selected_device) ... ok
 test_login_roles_and_csrf (test_llm.LLMTests.test_login_roles_and_csrf) ... ok
-test_bare_executable_directory_recovers_all_inputs (test_packaging.FrozenInputTests.test_bare_executable_directory_recovers_all_inputs) ... 已从随包资源创建本地文件：/tmp/tmp0z_s00g0/standalone/exam_id.txt
-已从随包资源创建本地文件：/tmp/tmp0z_s00g0/standalone/data/设备台账数据.csv
-已从随包资源创建本地文件：/tmp/tmp0z_s00g0/standalone/data/设备维修记录.csv
+test_bare_executable_directory_recovers_all_inputs (test_packaging.FrozenInputTests.test_bare_executable_directory_recovers_all_inputs) ... 已从随包资源创建本地文件：/tmp/tmpdn38o_fh/standalone/exam_id.txt
+已从随包资源创建本地文件：/tmp/tmpdn38o_fh/standalone/data/设备台账数据.csv
+已从随包资源创建本地文件：/tmp/tmpdn38o_fh/standalone/data/设备维修记录.csv
 ok
-test_existing_exam_id_data_and_database_are_not_overwritten (test_packaging.FrozenInputTests.test_existing_exam_id_data_and_database_are_not_overwritten) ... 已从随包资源创建本地文件：/tmp/tmpsjjx3p53/standalone/exam_id.txt
-已从随包资源创建本地文件：/tmp/tmpsjjx3p53/standalone/data/设备台账数据.csv
-已从随包资源创建本地文件：/tmp/tmpsjjx3p53/standalone/data/设备维修记录.csv
+test_existing_exam_id_data_and_database_are_not_overwritten (test_packaging.FrozenInputTests.test_existing_exam_id_data_and_database_are_not_overwritten) ... 已从随包资源创建本地文件：/tmp/tmpvosgngnj/standalone/exam_id.txt
+已从随包资源创建本地文件：/tmp/tmpvosgngnj/standalone/data/设备台账数据.csv
+已从随包资源创建本地文件：/tmp/tmpvosgngnj/standalone/data/设备维修记录.csv
 ok
 test_old_bundle_fails_clearly_before_partial_initialization (test_packaging.FrozenInputTests.test_old_bundle_fails_clearly_before_partial_initialization) ... ok
 test_source_mode_does_not_seed_test_or_user_directories (test_packaging.FrozenInputTests.test_source_mode_does_not_seed_test_or_user_directories) ... ok
@@ -39,6 +42,6 @@ test_11_role_is_checked_from_database_on_every_request (test_web.WebTests.test_1
 test_12_account_survives_real_process_restart (test_web.WebTests.test_12_account_survives_real_process_restart) ... ok
 
 ----------------------------------------------------------------------
-Ran 28 tests in 7.872s
+Ran 31 tests in 8.668s
 
 OK

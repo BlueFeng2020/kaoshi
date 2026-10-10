@@ -142,7 +142,11 @@ def create_app(root=None, testing=False, make_charts=True):
     def analytics():
         return render_template('analytics.html',summary=data.summary,faults=table(data.faults),monthly=table(data.monthly),workshops=table(data.workshops),images=images,
             category_operations=table(data.category_operations),methods=table(data.methods),retirement=table(data.retirement),
-            category_faults=table(data.category_faults.reset_index()),seasonal=table(data.seasonal),seasonal_category=table(data.seasonal_category.reset_index()))
+            category_faults=table(data.category_faults.reset_index()),seasonal=table(data.seasonal),seasonal_category=table(data.seasonal_category.reset_index()),
+            category_fault_shares=table(data.category_fault_shares.reset_index()),category_preference=table(data.category_preference),
+            category_examples=table(data.category_examples),
+            category_monthly=table(data.category_monthly),seasonal_focus=table(data.seasonal_focus),season_observation=data.season_observation,
+            focus_conclusions=data.seasonal_focus[['设备类别','重点月份','数据结论']].to_dict('records'))
 
     @app.get('/frequency')
     @logged_in

@@ -7,6 +7,24 @@
 <section id="categories"><h2>各设备类别维保频次与费用</h2><img class="chart" src="{{ url_for('chart',key='category_count') }}" alt="设备类别频次"><img class="chart" src="{{ url_for('chart',key='category_cost') }}" alt="设备类别费用"><div class="table-scroll">{{ category_operations }}</div></section>
 <section id="methods"><h2>维修方式占比</h2><p>按有效维修记录统计自行维修、委外维修等方式的次数及占比。</p><img class="chart" src="{{ url_for('chart',key='methods') }}" alt="维修方式分布"><div class="table-scroll">{{ methods }}</div></section>
 <section id="retirement"><h2>报废原因分布</h2><p>包含全部已报废设备；周期无法计算不影响报废原因计数。缺失原因单列“未记录”。</p><img class="chart" src="{{ url_for('chart',key='retirement') }}" alt="报废原因分布"><div class="table-scroll">{{ retirement }}</div></section>
-<section id="category-faults"><h2>不同类别设备的故障类型差异</h2><p>热力图与下表使用同一份有效次数矩阵；颜色反映绝对次数，不等同于故障率。</p><img class="chart" src="{{ url_for('chart',key='category_faults') }}" alt="类别故障类型热力图"><div class="table-scroll">{{ category_faults }}</div></section>
-<section id="seasonal"><h2>季节与日历月份分布</h2><p>把所有年份相同日历月合并，观察月度累计次数、停机及类别差异。不同月份的数据覆盖年数和运行暴露量不同，结果只作描述性比较，不直接推断高温等因果关系。</p><img class="chart" src="{{ url_for('chart',key='seasonal') }}" alt="日历月份停机分布"><div class="table-scroll">{{ seasonal }}</div><img class="chart" src="{{ url_for('chart',key='seasonal_category') }}" alt="类别季节分布"><div class="table-scroll">{{ seasonal_category }}</div></section>
+<section id="category-faults"><h2>不同类别设备的故障类型差异</h2>
+<p>先比较类别内占比，避免设备数量和维修总量不同造成误读。每行以该类别全部有效维修为分母，包含“未分类”；无维修类别占比显示“—”。首位类型只表示本样本排名，不等同于发生故障的概率；并列首位全部列出。</p>
+<h3>各类别首位故障及维护方向</h3><div class="table-scroll">{{ category_preference }}</div>
+<p>结合下表核验注塑机液压故障、PLC控制柜控制/软件故障、变压器外部因素的实际占比。可据此分别安排液压密封与油路、控制系统诊断与备份、供电环境与外部防护检查；若实际排名不同，以计算结果为准。</p>
+<div class="table-scroll">{{ category_examples }}</div><p>全体设备占比作背景参照，包含当前类别，不是独立对照；“占比高”不意味着该类型必然排在本类别第一。</p>
+<img class="chart" src="{{ url_for('chart',key='category_fault_shares') }}" alt="类别内故障类型百分比热力图"><div class="table-scroll">{{ category_fault_shares }}</div>
+<p><a href="{{ url_for('download',label='类别故障占比') }}">下载类别内故障占比 CSV</a> · <a href="{{ url_for('download',label='类别首位故障') }}">下载首位故障 CSV</a></p>
+<details><summary>查看有效维修绝对次数：图表与矩阵</summary><img class="chart" src="{{ url_for('chart',key='category_faults') }}" alt="类别故障类型次数热力图"><div class="table-scroll">{{ category_faults }}</div></details></section>
+<section id="seasonal"><h2>季节与日历月份分布</h2>
+<p>全年原始趋势见上方“不同月份停机时长”（YYYY-MM）；下图将各年相同日历月合并，展示重点设备停机负担。1—2月为冬季观察窗口，7—9月为夏季观察窗口；缺失时长不当0，无维修的类别月份为0，有维修但时长全缺失显示“—”，图中断开。</p>
+<h3>重点设备的月份停机时长</h3><img class="chart" src="{{ url_for('chart',key='seasonal_hours') }}" alt="五类设备1至12月停机小时趋势">
+<div class="table-scroll tall">{{ category_monthly }}</div><p><a href="{{ url_for('download',label='类别月份停机') }}">下载全部类别×月份的停机、次数与缺失明细</a></p>
+<h3>夏季7—9月与冬季1—2月专项对比</h3>
+<p>制冷机组、空压机、变压器、配电柜对比7—9月与其余月；风机对比1—2月与其余月。观察范围为有效报修最早至最晚年月：<strong>{{ season_observation }}</strong>。月均值=窗口累计值÷观察范围内该窗口覆盖的年月数，覆盖区间内没有记录的年月也计入分母；首末月可能不完整，且该区间并非已经验证的数据完整覆盖期。</p>
+<p>这样可避免直接比较3个月和9个月、2个月和10个月的总数。仍未校正设备在用台数、运行小时或缺失记录；次数比仅作描述性参考，不是故障率、显著性检验或高温/低温的因果证据。没有有效对照时不计算倍数。</p>
+<img class="chart" src="{{ url_for('chart',key='seasonal_compare_count') }}" alt="重点窗口与其余月份平均维修次数"><img class="chart" src="{{ url_for('chart',key='seasonal_compare_hours') }}" alt="重点窗口与其余月份平均已知停机时长">
+<div class="table-scroll">{{ seasonal_focus }}</div><ul>{% for row in focus_conclusions %}<li><strong>{{ row['设备类别'] }}（{{ row['重点月份'] }}）</strong>：{{ row['数据结论'] }}</li>{% endfor %}</ul>
+<p>业务建议：对实际出现夏季集中的类别，在6月底前安排散热、通风、冷却和电气巡检；风机若在冬季集中，可在入冬前检查润滑、防冻及振动。若数据未支持集中现象，则继续核对运行负荷与完整覆盖期，不直接增加固定季节检修任务。</p>
+<p><a href="{{ url_for('download',label='重点季节对比') }}">下载重点季节对比 CSV</a></p>
+<details><summary>查看全类别月度次数热力图与全局月份停机统计</summary><img class="chart" src="{{ url_for('chart',key='seasonal') }}" alt="全局日历月份停机分布"><div class="table-scroll">{{ seasonal }}</div><img class="chart" src="{{ url_for('chart',key='seasonal_category') }}" alt="全类别日历月份次数分布"><div class="table-scroll">{{ seasonal_category }}</div></details></section>
 {% endblock %}

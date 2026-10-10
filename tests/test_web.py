@@ -155,10 +155,10 @@ class WebTests(unittest.TestCase):
         self.assertEqual(len(self.rows('/frequency?q=SB-0001')),1)
         for row in self.rows('/frequency?category=数控机床'):self.assertEqual(row[2],'数控机床')
         html=self.client.get('/analytics').get_data(as_text=True)
-        for name in ['故障类型分布','不同月份停机时长','维修方式占比','报废原因分布','不同类别设备的故障类型差异','季节与日历月份分布']:
+        for name in ['故障类型分布','不同月份停机时长','维修方式占比','报废原因分布','不同类别设备的故障类型差异','季节与日历月份分布','类别内占比','夏季7—9月与冬季1—2月专项对比','重点设备的月份停机时长']:
             self.assertIn(name,html)
         self.assertIn('class="sidebar"',html)
-        self.assertEqual(len(self.app.extensions['chart_files']),15)
+        self.assertEqual(len(self.app.extensions['chart_files']),19)
 
     def test_11_role_is_checked_from_database_on_every_request(self):
         from auth import add_user

@@ -280,6 +280,9 @@ class Dataset:
         self.seasonal=self.seasonal.reset_index()
         self.seasonal_category=pd.crosstab(category,months).reindex(index=sorted(d['设备类别'].unique()),columns=range(1,13),fill_value=0).rename_axis(index='设备类别')
         self.seasonal_category.columns=[f'{m}月' for m in self.seasonal_category.columns]
+        from analysis_dimensions import dimensions
+        for name,value in dimensions(self.category_faults,work,self.dates[REPAIR_FILE,'报修日期'].loc[self.valid_repair]).items():
+            setattr(self,name,value)
 
     def group_life(self, keys):
         result = self.life.groupby(keys,dropna=False).agg(设备总数=('设备编号','size'),有效样本数=('使用周期(年)','count'),平均使用周期年=('使用周期(年)','mean')).reset_index()
@@ -303,6 +306,9 @@ class Dataset:
                   '各设备维保频次':self.device_frequency,'类别维保统计':self.category_operations,
                   '维修方式统计':self.methods,'报废原因统计':self.retirement,
                   '类别故障分布':self.category_faults.reset_index(),'季节月份统计':self.seasonal,'类别季节分布':self.seasonal_category.reset_index(),
+                  '类别故障占比':self.category_fault_shares.reset_index(),'类别首位故障':self.category_preference,
+                  '典型类别故障对比':self.category_examples,
+                  '类别月份停机':self.category_monthly,'重点季节对比':self.seasonal_focus,
                   '清洗审计日志':pd.DataFrame(self.audit),
                   '异常明细':pd.DataFrame(self.events,columns=['文件','CSV行号','设备编号','维修单号','字段','原始值','问题','处理策略']),
                   '生命周期设备明细':self.life,'生命周期排除明细':self.life.loc[~self.lifecycle_valid],

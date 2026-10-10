@@ -1,12 +1,12 @@
 ﻿抽签序号：26
 回归平台：Linux（不是 Windows EXE 验收）
-已从随包资源创建本地文件：/tmp/kaoshi-onefile-gk6xrgl5/空目录 验收/exam_id.txt
-已从随包资源创建本地文件：/tmp/kaoshi-onefile-gk6xrgl5/空目录 验收/data/设备台账数据.csv
-已从随包资源创建本地文件：/tmp/kaoshi-onefile-gk6xrgl5/空目录 验收/data/设备维修记录.csv
+已从随包资源创建本地文件：/tmp/kaoshi-onefile-eq8aihcx/空目录 验收/exam_id.txt
+已从随包资源创建本地文件：/tmp/kaoshi-onefile-eq8aihcx/空目录 验收/data/设备台账数据.csv
+已从随包资源创建本地文件：/tmp/kaoshi-onefile-eq8aihcx/空目录 验收/data/设备维修记录.csv
 抽签序号：26；数据、清洗结果和图表已准备。
 PASS 设备台账数据_26.csv: 1080 rows; all exam IDs 26
 PASS 设备维修记录_26.csv: 3758 rows; all exam IDs 26
-PASS 15 PNG charts generated beside executable
+PASS 19 PNG charts generated beside executable
 PASS restart preserves inputs, exam ID, session key and account database
 PASS bundled onefile works from unrelated working directory without external input files
 Windows EXE: not built or run in this Linux environment; run build.bat locally.
