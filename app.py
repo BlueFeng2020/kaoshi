@@ -8,7 +8,7 @@ import webbrowser
 import pandas as pd
 from flask import Flask, abort, flash, g, redirect, render_template, request, send_from_directory, session, url_for
 from markupsafe import Markup
-from config import APP_ROOT, RESOURCE_ROOT, CUTOFF, read_exam_id
+from config import APP_ROOT, RESOURCE_ROOT, CUTOFF, read_exam_id, prepare_local_inputs
 from processing import Dataset
 from charts import generate_charts
 import auth
@@ -16,6 +16,7 @@ import auth
 
 def create_app(root=None, testing=False, make_charts=True):
     root=Path(root) if root else APP_ROOT
+    prepare_local_inputs(root)
     runtime=root/'runtime';runtime.mkdir(parents=True,exist_ok=True)
     exam_id=read_exam_id(root)
     key_path=runtime/'session.key'

@@ -28,7 +28,11 @@ py -3.12 -m venv .venv
 build.bat
 ```
 
-生成 `delivery\26\26.exe` 和 `delivery\26.zip`。先停止 Python 服务，再双击 EXE 验收。`build.bat onedir` 提供目录模式兜底。
+生成 `delivery\26\26.exe` 和 `delivery\26.zip`。脚本会实际执行最终 EXE 的 `--prepare` 检查资源，成功后自动打开最终交付目录。先停止 Python 服务，再双击该目录中的 EXE 验收。`build.bat onedir` 提供目录模式兜底。
+
+不要误选 `build\artifacts` 里的构建中间产物。新版 EXE 已内置默认抽签号及两份原始 CSV，即使仅把 EXE 复制到空的可写目录，首次运行也会补齐缺失输入；已有本地数据、抽签号和账号不会被覆盖。正式提交仍建议使用包含说明及清洗审计文件的完整 `26` 文件夹或 `26.zip`。
+
+如果旧 EXE 提示缺少 `exam_id.txt` 或 `data\设备台账数据.csv`，请下载最新版源码并重新执行 `build.bat`；更新源码不能改变之前生成的 EXE。
 
 **Windows EXE 必须在 Windows 本机构建并验收；本仓库不把 Linux 测试当作 Windows EXE 运行证明。**
 

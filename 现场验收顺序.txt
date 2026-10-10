@@ -24,8 +24,8 @@
 7. 退出登录；直接访问 /devices、/lifecycle、/analytics、/admin，均转 /login。
 
 Windows EXE 必须真实验收
-1. build.bat 完成后，确认 delivery\26\26.exe、README、exam_id.txt、data 和清洗审计文件。
-2. 关闭 Python 服务，确认其控制台已退出；双击 delivery 内的 EXE。
+1. build.bat 完成并自动打开最终目录后，确认 delivery\26\26.exe、README、exam_id.txt、data 和清洗审计文件。
+2. 关闭 Python 服务，确认其控制台已退出；双击 delivery 内的 EXE，不选择 build\artifacts 中间产物。
 3. 服务自动开浏览器或控制台显示本机地址；确认实际进程是 26.exe，而非原 Python 服务。
 4. 登录 admin，逐项检查台账、图表图片、清洗下载、序号、用户GET/POST权限。
 5. EXE 中创建 winjudge / Judge@123，关闭 EXE 后重启，确认账号仍可登录。
@@ -38,3 +38,5 @@ Windows EXE 必须真实验收
 10. 最终提交26目录与26.zip，附26_源码.zip及说明。
 
 当前交付已在 Linux 使用真实 CSV 进行自动测试；Windows 打包、桌面双击、浏览器人工操作和无 Python 运行待本机验收。
+
+新版打包回归：可另建一个空的可写目录，仅复制新EXE进去。首次运行应自动生成exam_id.txt（26）、data中的两份输入、runtime和output；仅在本机真实通过后记录Windows单文件验收成功。

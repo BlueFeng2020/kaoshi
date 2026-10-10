@@ -8,6 +8,16 @@ test_expected_anomalies_and_masks (test_data.RealDataTests.test_expected_anomali
 test_exports_are_real_bom_csv_with_dynamic_id (test_data.RealDataTests.test_exports_are_real_bom_csv_with_dynamic_id) ... ok
 test_real_analysis_reconciles (test_data.RealDataTests.test_real_analysis_reconciles) ... ok
 test_real_shape_and_preservation (test_data.RealDataTests.test_real_shape_and_preservation) ... ok
+test_bare_executable_directory_recovers_all_inputs (test_packaging.FrozenInputTests.test_bare_executable_directory_recovers_all_inputs) ... 已从随包资源创建本地文件：/tmp/tmpldz7b_sv/standalone/exam_id.txt
+已从随包资源创建本地文件：/tmp/tmpldz7b_sv/standalone/data/设备台账数据.csv
+已从随包资源创建本地文件：/tmp/tmpldz7b_sv/standalone/data/设备维修记录.csv
+ok
+test_existing_exam_id_data_and_database_are_not_overwritten (test_packaging.FrozenInputTests.test_existing_exam_id_data_and_database_are_not_overwritten) ... 已从随包资源创建本地文件：/tmp/tmp_1fvo_ft/standalone/exam_id.txt
+已从随包资源创建本地文件：/tmp/tmp_1fvo_ft/standalone/data/设备台账数据.csv
+已从随包资源创建本地文件：/tmp/tmp_1fvo_ft/standalone/data/设备维修记录.csv
+ok
+test_old_bundle_fails_clearly_before_partial_initialization (test_packaging.FrozenInputTests.test_old_bundle_fails_clearly_before_partial_initialization) ... ok
+test_source_mode_does_not_seed_test_or_user_directories (test_packaging.FrozenInputTests.test_source_mode_does_not_seed_test_or_user_directories) ... ok
 test_01_unauthenticated_all_business_routes_and_post (test_web.WebTests.test_01_unauthenticated_all_business_routes_and_post) ... ok
 test_02_login_logout_and_wrong_password (test_web.WebTests.test_02_login_logout_and_wrong_password) ... ok
 test_03_user_pages_and_direct_post_forbidden (test_web.WebTests.test_03_user_pages_and_direct_post_forbidden) ... ok
@@ -19,6 +29,6 @@ test_08_empty_account_table_only_initialization (test_web.WebTests.test_08_empty
 test_09_dynamic_id_validation (test_web.WebTests.test_09_dynamic_id_validation) ... ok
 
 ----------------------------------------------------------------------
-Ran 14 tests in 4.073s
+Ran 18 tests in 4.127s
 
 OK

@@ -27,9 +27,9 @@
 三、打包与交付
 确认 exam_id.txt 为 26，关闭已有 EXE（防止 Windows 占用文件），在 CMD 执行：
   build.bat
-build.bat 会安装 requirements-build.txt、运行 unittest、重新清洗和绘图、调用 PyInstaller --onefile。
+build.bat 会安装 requirements-build.txt、运行 unittest、重新清洗和绘图、调用 PyInstaller --onefile；随后实际执行最终EXE的 --prepare 验证资源加载，失败就返回错误。成功后自动打开最终交付目录。
 成功产物为 delivery\26\26.exe 和 delivery\26.zip。
-必须整体保留同目录 exam_id.txt、data\ 两份原始 CSV、说明和审计文件；onefile 指 Python 运行时为单 EXE，外置业务数据仍须随目录交付。
+正式提交仍建议整体交付26文件夹或26.zip，包含说明、原始数据和审计文件。新版EXE同时内置打包时的exam_id.txt和两份原始CSV；仅复制EXE到空的可写目录时，首次运行会自动创建这些缺失文件。已有本地配置、数据和账号绝不被启动初始化覆盖。
 交付目录顶层有两份清洗 CSV 和审计文件；运行 EXE 后最新输出在 output\，账号在 runtime\。
 若 onefile 解包受本机防护策略影响，可用同一源码执行：
   build.bat onedir
@@ -42,7 +42,7 @@ onedir 模式会在相同交付目录生成 EXE 与 _internal 依赖目录，必
 PyInstaller 不能在 Linux 上交叉生成 Windows EXE，本交付不含假冒 Windows EXE。
 Windows 现场必须先退出 Python 服务，再运行 EXE，防止误把 Python 服务当作 EXE 验收。
 EXE 仅监听 127.0.0.1:8765，无 debug、无 reloader，不绑定 0.0.0.0。
-sys._MEIPASS 仅用于模板/静态字体资源；SQLite、session.key、清洗 CSV、PNG 和 matplotlib 缓存始终写在 EXE 旁，不写临时解包目录。
+sys._MEIPASS 只读资源包含模板、字体以及默认原始CSV和抽签号。默认输入仅在EXE旁缺失时复制出来；SQLite、session.key、清洗CSV、PNG和缓存始终写在EXE旁，不写临时解包目录。
 同机端口被占用时，先关掉之前的服务；无需修改监听地址或开防火墙公网端口。
 
 四、离线运行与可选离线安装
@@ -124,3 +124,8 @@ ModuleNotFoundError：执行 .venv\Scripts\python.exe -m pip install -r requirem
 浏览器未自动打开：按控制台地址手动访问；等待首次图表生成结束。
 网页数据未变化：修改 data 原始文件后 Ctrl+C，再启动；不在 output 里改输入。
 EXE 构建失败：查看控制台第一条错误，不要把旧 exe 当作本次成功结果；用 build.bat onedir 兜底并整体交付。
+
+十、打开 build\artifacts\26.exe 提示缺少文件时
+旧版的 build\artifacts 是构建中间目录，最终交付在 delivery\26。请优先运行 delivery\26\26.exe。
+新版已将默认抽签号和原始CSV打入EXE，能在首次启动时恢复缺失的输入；旧EXE不会自动更新，必须下载新版源码并重新运行build.bat。
+若只替换源码而继续双击旧EXE，原错误仍会出现。不要删除已有runtime文件夹，它保存已创建的账号。

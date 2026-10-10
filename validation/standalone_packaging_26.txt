@@ -1,0 +1,10 @@
+﻿抽签序号：26
+回归平台：Linux（不是Windows EXE验收）
+已从随包资源创建本地文件：/tmp/single-file-26-gx98gnlz/空目录 验收/exam_id.txt
+已从随包资源创建本地文件：/tmp/single-file-26-gx98gnlz/空目录 验收/data/设备台账数据.csv
+已从随包资源创建本地文件：/tmp/single-file-26-gx98gnlz/空目录 验收/data/设备维修记录.csv
+抽签序号：26；数据、清洗结果和图表已准备。
+
+PASS: only one executable copied; from unrelated CWD restored exam_id=26 and both original CSVs; generated 7 charts and correct cleaned CSVs beside executable.
+PASS: restart preserves input files, session key and existing account hashes; all expected writable artifacts are located beside the executable.
+Windows: run updated build.bat locally; old EXE must be rebuilt. Windows execution remains untested here.

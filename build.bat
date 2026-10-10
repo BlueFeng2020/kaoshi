@@ -27,7 +27,9 @@ if errorlevel 1 goto fail
 :build
 ".venv\Scripts\python.exe" build.py --mode %MODE%
 if errorlevel 1 goto fail
-echo Build completed. See delivery folder. Windows EXE still needs manual acceptance.
+echo Build completed. The final delivery folder has been opened.
+echo Use the EXE inside the opened delivery folder, not build\artifacts.
+echo The EXE passed --prepare; browser acceptance is still required.
 pause
 exit /b 0
 :usage
